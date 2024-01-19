@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { db } from "./firebase.config"
+import { db } from "./firebase.config";
 import {
   collection,
   getDocs,
@@ -42,22 +42,31 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="container">
       <input
-        placeholder="Name..."
+        type="text"
+        class="form-control"
+        placeholder="Username"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
         onChange={(event) => {
           setNewName(event.target.value);
         }}
       />
       <input
         type="number"
-        placeholder="Age..."
+        class="form-control"
+        placeholder="User Age"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
         onChange={(event) => {
           setNewAge(event.target.value);
         }}
       />
+      <button type="button" class="btn btn-primary" onClick={createUser}>
+        Create User
+      </button>
 
-      <button onClick={createUser}> Create User</button>
       {users.map((user) => {
         return (
           <div>
