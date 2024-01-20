@@ -39,13 +39,12 @@ function App() {
     };
 
     getUsers();
-  }, []);
-
+  }, [usersCollectionRef]);
   return (
     <div className="container">
       <input
         type="text"
-        class="form-control"
+        className="form-control"
         placeholder="Username"
         aria-label="Username"
         aria-describedby="basic-addon1"
@@ -55,7 +54,7 @@ function App() {
       />
       <input
         type="number"
-        class="form-control"
+        className="form-control"
         placeholder="User Age"
         aria-label="Username"
         aria-describedby="basic-addon1"
@@ -63,13 +62,13 @@ function App() {
           setNewAge(event.target.value);
         }}
       />
-      <button type="button" class="btn btn-primary" onClick={createUser}>
+      <button type="button" className="btn btn-primary" onClick={createUser}>
         Create User
       </button>
 
       {users.map((user) => {
         return (
-          <div>
+          <div key={user.id}>
             {" "}
             <h1>Name: {user.name}</h1>
             <h1>Age: {user.age}</h1>
@@ -77,16 +76,18 @@ function App() {
               onClick={() => {
                 updateUser(user.id, user.age);
               }}
+              type="button"
+              className="btn btn-success"
             >
-              {" "}
               Increase Age
             </button>
             <button
+              type="button"
               onClick={() => {
                 deleteUser(user.id);
               }}
+              className="btn btn-danger"
             >
-              {" "}
               Delete User
             </button>
           </div>
