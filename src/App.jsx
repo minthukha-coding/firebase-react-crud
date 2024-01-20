@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import Swal from "sweetalert2";
 
 function App() {
   const [newName, setNewName] = useState("");
@@ -18,18 +19,46 @@ function App() {
   const usersCollectionRef = collection(db, "users");
 
   const createUser = async () => {
+    Swal.fire({
+      title: "Success",
+      text: "Creating user Success",
+      icon: "success"
+    });
     await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
   };
 
   const updateUser = async (id, age) => {
+    Swal.fire({
+      title: "Success",
+      text: "Increase user age",
+      icon: "success"
+    });
     const userDoc = doc(db, "users", id);
     const newFields = { age: age + 1 };
     await updateDoc(userDoc, newFields);
   };
 
   const deleteUser = async (id) => {
-    const userDoc = doc(db, "users", id);
-    await deleteDoc(userDoc);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+        const userDoc = doc(db, "users", id);
+        deleteDoc(userDoc);
+      }
+    });
+
   };
 
   useEffect(() => {
